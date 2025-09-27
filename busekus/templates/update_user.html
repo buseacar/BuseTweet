@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-10 offset-md-0">
+<h1>Kullanıcı Bilgisi Güncelle</h1>
+<br/>
+
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    <br/>
+    {{ profile_form.as_p }}
+
+    <br/><br/>
+    <button type="submit" class="btn btn-secondary">        
+    Kaydet</button>
+</form>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% load static %}
+<nav class="navbar navbar-expand navbar-dark" style="background-color: #121212;">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-white" href="{% url 'home' %}">BuseTweet</a>
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row align-items-center">
+      {% if user.is_authenticated %}
+        <li class="nav-item me-1">
+          <a class="nav-link" href="{% url 'profile_list' %}" style="color: rgba(255, 255, 255, 0.5); font-weight: 600;">Profil Listesi</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Çıkış</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Kayıt Ol</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Giriş</a>
+        </li>
+      {% endif %}
+    </ul>
+
+    {% if user.is_authenticated %}
+      <ul class="navbar-nav ml-auto d-flex align-items-center">
+        
+        <!-- GLOBAL KULLANICI ARAMA FORMU -->
+        <li class="nav-item me-2">
+          <form class="d-flex" method="GET" action="{% url 'user_search' %}">
+            <input class="form-control me-2" type="search" name="query" placeholder="Kullanıcı Ara" aria-label="Ara">
+            <button class="btn btn-outline-light" type="submit">Ara</button>
+          </form>
+        </li>
+
+        <!-- PROFİL FOTOĞRAFI -->
+        <li class="nav-item">
+          <a href="{% url 'profile' request.user.id %}">
+            {% if user.profile.profile_image %}
+              <img src="{{ user.profile.profile_image.url }}" class="rounded-circle" width="30"> 
+            {% else %}
+              <img src="{% static 'images/default_profile_pic.png' %}" class="img-fluid rounded-start" alt="Profile Image" width="30">
+            {% endif %}
+          </a>
+        </li>
+      </ul>
+    {% endif %}
+
+  </div>
+</nav>

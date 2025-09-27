@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center">
+    <h1>Tweet Ara</h1>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Ara</button>
+    </form>
+    <hr/>
+
+    {% if meeps %}
+        {% for meep in meeps %}
+            <div class="alert alert-secondary" role="alert">
+                <strong>{{ meep.user.username }}</strong>: {{ meep.body }}
+                <br/>
+                <small class="text-muted">{{ meep.created_at }}</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if form.is_bound %}
+            <p>Aradığınız tweet bulunamadı.</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

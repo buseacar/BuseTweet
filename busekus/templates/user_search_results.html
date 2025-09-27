@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Arama Sonuçları: "{{ query }}"</h2>
+
+    {% if results %}
+        <ul class="list-group">
+            {% for user in results %}
+                <li class="list-group-item d-flex align-items-center">
+                    <!-- Profil Fotoğrafı -->
+                    {% if user.profile.profile_image %}
+                        <img src="{{ user.profile.profile_image.url }}" 
+                             class="rounded-circle me-3" 
+                             width="50" height="50" alt="{{ user.username }}">
+                    {% else %}
+                        <img src="{% static 'images/default_profile_pic.png' %}" 
+                             class="rounded-circle me-3" 
+                             width="50" height="50" alt="{{ user.username }}">
+                    {% endif %}
+
+                    <!-- Kullanıcı İsmi -->
+                    <a href="{% url 'profile' user.id %}" 
+                       class="fw-bold text-dark" 
+                       style="font-size: 1.3rem;">
+                        @{{ user.username }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Hiç kullanıcı bulunamadı.</p>
+    {% endif %}
+</div>
+{% endblock %}
